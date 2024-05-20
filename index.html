@@ -84,24 +84,28 @@
                 <li id="output"></li>
                 <script>
                   function recipeDisplay(category) {
-                    const apiUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
+                    const apiUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
                     fetch(apiUrl)
-                      .then(response => {
-                        if(!response.ok) {
-                          throw new Error
+                      .then((response) => {
+                        if (!response.ok) {
+                          throw new Error();
                         }
                         return response.json();
                       })
-                      .then(data => {
-                        const recipes = data.meals
-                        if(recipes) {
-                          const recipeNames = recipes.map(recipe => recipe.strMeal);
+                      .then((data) => {
+                        const recipes = data.meals;
+                        if (recipes) {
+                          const recipeNames = recipes.map(
+                            (recipe) => recipe.strMeal
+                          );
                           // display
-                          document.getElementById("recipe_filter").innerText = recipeNames.join(', ')
+                          document.getElementById("recipe_filter").innerText =
+                            recipeNames;
                         } else {
-                          document.getElementById("recipe_filter").innerText = "No recpes found :("
+                          document.getElementById("recipe_filter").innerText =
+                            "No recpes found :(";
                         }
-                      })
+                      });
                   }
                   const dropdownMenu = document.getElementById(
                     "categoryDropDownMenu"
@@ -128,26 +132,50 @@
                     listItem.classList.add("dropdown-item");
                     listItem.textContent = category;
 
-                    listItem.addEventListener('click', function() {
-                      recipeDisplay(category)
-                    })
+                    listItem.addEventListener("click", function () {
+                      recipeDisplay(category);
+                    });
                     // Append the list item to the dropdown menu
                     dropdownMenu.appendChild(listItem);
                   });
                 </script>
               </ul>
             </div>
-            <div id="recipe_filter">
-
-            </div>
+            <div id="recipe_filter"></div>
           </div>
         </div>
       </div>
       <div class="col-6">
         <div class="card">
           <div class="card-header">
-            <h1>Search By Area</h1>
+            <h1>Want To Try Something New?</h1>
+            <button
+              onclick="randomRecipe()"
+              id="randomBtn"
+              class="btn btn-primary"
+              type="button"
+            >
+              Click Here To Try Something New!
+            </button>
+            <p id="random_recipe" class="m-3"></p>
           </div>
+          <script>
+            const btnRandom = document.getElementById("randomBtn");
+            const random_recipe = document.getElementById("random_recipe");
+            function randomRecipe() {
+              const apiUrl = `https://www.themealdb.com/api/json/v1/1/random.php`;
+              fetch(apiUrl)
+                .then((response) => {
+                  if (!response.ok) {
+                    throw new Error();
+                  }
+                  return response.json();
+                })
+                .then((data) => {
+                  random_recipe.textContent = data.meals[0].strMeal;
+                });
+            }
+          </script>
         </div>
       </div>
     </div>
