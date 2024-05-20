@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -83,6 +83,26 @@
               <ul class="dropdown-menu" id="categoryDropDownMenu">
                 <li id="output"></li>
                 <script>
+                  function recipeDisplay(category) {
+                    const apiUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
+                    fetch(apiUrl)
+                      .then(response => {
+                        if(!response.ok) {
+                          throw new Error
+                        }
+                        return response.json();
+                      })
+                      .then(data => {
+                        const recipes = data.meals
+                        if(recipes) {
+                          const recipeNames = recipes.map(recipe => recipe.strMeal);
+                          // display
+                          document.getElementById("recipe_filter").innerText = recipeNames.join(', ')
+                        } else {
+                          document.getElementById("recipe_filter").innerText = "No recpes found :("
+                        }
+                      })
+                  }
                   const dropdownMenu = document.getElementById(
                     "categoryDropDownMenu"
                   );
@@ -106,13 +126,19 @@
                     // Create a list item
                     const listItem = document.createElement("li");
                     listItem.classList.add("dropdown-item");
-                    listItem.textContent = category
+                    listItem.textContent = category;
 
+                    listItem.addEventListener('click', function() {
+                      recipeDisplay(category)
+                    })
                     // Append the list item to the dropdown menu
                     dropdownMenu.appendChild(listItem);
                   });
                 </script>
               </ul>
+            </div>
+            <div id="recipe_filter">
+
             </div>
           </div>
         </div>
