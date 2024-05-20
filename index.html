@@ -36,7 +36,11 @@
               />
             </div>
           </div>
-          <button class="btn btn-primary w-25 mx-auto" type="button" onclick="getRecipe()">
+          <button
+            class="btn btn-primary w-25 mx-auto"
+            type="button"
+            onclick="getRecipe()"
+          >
             Find Recipe
           </button>
         </div>
@@ -68,6 +72,48 @@
         <div class="card">
           <div class="card-header">
             <h1>Search By Category:</h1>
+            <div class="dropdown">
+              <button
+                class="btn btn-primary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+              >
+                Search by Category
+              </button>
+              <ul class="dropdown-menu" id="categoryDropDownMenu">
+                <li id="output"></li>
+                <script>
+                  const dropdownMenu = document.getElementById(
+                    "categoryDropDownMenu"
+                  );
+                  const categoryNums = [
+                    "Beef",
+                    "Chicken",
+                    "Dessert",
+                    "Lamb",
+                    "Miscellaneous",
+                    "Pasta",
+                    "Pork",
+                    "Seafood",
+                    "Side",
+                    "Starter",
+                    "Veagan",
+                    "Vegetarian",
+                    "Breakfast",
+                    "Goat",
+                  ];
+                  categoryNums.forEach(function (category) {
+                    // Create a list item
+                    const listItem = document.createElement("li");
+                    listItem.classList.add("dropdown-item");
+                    listItem.textContent = category
+
+                    // Append the list item to the dropdown menu
+                    dropdownMenu.appendChild(listItem);
+                  });
+                </script>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
