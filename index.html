@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -32,7 +32,7 @@
                 id="recipe_input"
                 aria-describedby="helpId"
                 placeholder="Enter a Recipe"
-                list="recipeNames"
+                list="  s"
               />
             </div>
           </div>
@@ -68,7 +68,7 @@
       </div>
     </div>
     <div class="row mt-5 text-center">
-      <div class="col-6">
+      <div class="col-md-6">
         <div class="card">
           <div class="card-header">
             <h1>Search By Category:</h1>
@@ -121,7 +121,6 @@
                     "Seafood",
                     "Side",
                     "Starter",
-                    "Veagan",
                     "Vegetarian",
                     "Breakfast",
                     "Goat",
@@ -145,7 +144,7 @@
           </div>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         <div class="card">
           <div class="card-header">
             <h1>Want To Try Something New?</h1>
@@ -176,6 +175,72 @@
                 });
             }
           </script>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <div class="card">
+          <div class="card-title">
+            <h1>
+              Search By Location:
+            </h1>
+            <div class="card-body">
+              <h4 class="card-title">Enter Location</h4>
+              <div class="mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="location_input"
+                  id="location_input"
+                  aria-describedby="helpId"
+                  placeholder="Enter a Location"
+                  list="recipeNames"
+                />
+              </div>
+            </div>
+            <button
+              class="btn btn-primary"
+              type="button"
+              id="random_location"
+              onclick="findLocation()"
+            >
+              Search by Location
+            </button>
+            <p id="location_text">
+
+            </p>
+            </div>
+            <script>
+          function findLocation() {
+            const userInput = document.getElementById("location_input").value;
+            const apiUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${userInput}`;
+            const location_text = document.getElementById("location_text")
+            
+            fetch(apiUrl)
+            .then(response => {
+              
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then(data => {
+              const locationText = document.getElementById("location_text");
+              locationText.innerHTML = "";
+              data.meals.forEach(meal => {
+                
+                const paragraph = document.createElement("p");
+                paragraph.textContent = meal.strMeal; // Assuming strMeal contains the name of the meal
+                locationText.appendChild(paragraph);
+              });
+            })
+            .catch(error => {
+              console.error('There was a problem with the fetch operation:', error);
+            });
+          }
+            </script>
+          </div>
         </div>
       </div>
     </div>
