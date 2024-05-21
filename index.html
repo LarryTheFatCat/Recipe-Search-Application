@@ -15,6 +15,7 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script src="https://kit.fontawesome.com/17abdb2eae.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <style>
@@ -81,13 +82,20 @@
   }
     </style>
     <div class="row d-flex">
-      <div class="col-2">
-        <p class="d-flex p-2">
-          <label class="mt-1" for="switch">Dark Mode Toggle: </label>
-          <label class="switch">
-            <input id="switch" type="checkbox" onclick="changeTheme()">
-            <span class="slider round"></span>
-          </label>
+      <div class="row d-flex text-end pt-2">
+        <div class="icon">
+          <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            <i class="fa-solid fa-gear"></i>
+          </button>
+          <ul class="dropdown-menu">
+            <li class="dropdown-item">
+              <button id="btnSwitch" onclick="changeTheme()" type="button" class="btn btn-primary">
+                Light To Dark / Dark To Light
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
         </p>
       </div>
     </div>
